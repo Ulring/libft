@@ -1,0 +1,70 @@
+version(1);
+project_name = "libft";
+
+patterns = {
+"*.c",
+"*.cpp",
+"*.h",
+"*.hpp"
+"*.bat",
+"*.sh",
+"*.4coder",
+"*.txt",
+};
+blacklist_patterns = {
+".*",
+};
+load_paths_custom = {
+ {"."},
+};
+load_paths = {
+ { load_paths_custom, .os = "win"  },
+ { load_paths_custom, .os = "linux"},
+ { load_paths_custom, .os = "mac"  },
+};
+
+command_list = {
+	{ .name = "make",
+      .out = "*Compilation*", .footer_panel = true, .save_dirty_files = true,
+      .cmd = {
+				{"wsl make" , .os ="win"}
+             },
+	},
+	{ .name = "clean",
+      .out = "*Cleaning*", .footer_panel = true, .save_dirty_files = true,
+      .cmd = {
+				{"wsl make clean" , .os ="win"}
+			 },
+	},
+	{ .name = "fclean",
+      .out = "*Fcleaning*", .footer_panel = true,         		  	.save_dirty_files = true,
+      .cmd = {
+				{"wsl make fclean" , .os ="win"}
+			 },
+	},
+	{ .name = "recompile",
+      .out = "*Recompiling*", .footer_panel = true,         		  	.save_dirty_files = true,
+      .cmd = {
+				{"wsl make re" , .os ="win"}
+			 },
+	},
+	{ .name = "norminette",
+      .out = "*Norminette*", .footer_panel = true,         		  	.save_dirty_files = true,
+      .cmd = {
+				{"wsl /home/anass/.local/bin/norminette" , .os ="win"}
+			 },
+	},
+	{ .name = "test",
+      .out = "*Testing*", .footer_panel = true,         		  	.save_dirty_files = true,
+      .cmd = {
+				{"wsl /home/anass/francinette/tester.sh" , .os ="win"}
+			 },
+	}
+};
+
+fkey_command[1] = "make";
+fkey_command[2] = "clean";
+fkey_command[3] = "fclean";
+fkey_command[4] = "recompile";
+fkey_command[5] = "norminette";
+fkey_command[6] = "test";
