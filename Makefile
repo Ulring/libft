@@ -22,18 +22,20 @@ BIN_DIR 	= bin
 
 DEBUG_CFLAGS= -g3 -fsanitize=address
 
-MKDIR_P 	= mkdir -p
+RM 			= rm -rf
 
-RM = rm -rf
+CC 			= gcc
 
-CC = gcc
-
-CFLAGS = -Wall -Wextra -Werror -I$(INC_DIR)
+CFLAGS		= -Wall -Wextra -Werror -I$(INC_DIR)
 
 HEADERS     = $(addprefix $(INC_DIR)/,$(INC_FILES))
 SRCS        = $(addprefix $(SRC_DIR)/,$(SRC_FILES))
 OBJS        = $(addprefix $(OBJ_DIR)/,$(OBJ_NAME))
 TARGET 		= $(addprefix $(BIN_DIR)/,$(NAME))
+
+OBJ_NAME	= $(SRC_FILES:.c=.o)
+
+INC_FILES	= libft.h
 
 SRC_FILES   = 	ft_atoi.c       \
 				ft_isascii.c    \
@@ -70,16 +72,13 @@ SRC_FILES   = 	ft_atoi.c       \
 				ft_strrchr.c    \
 				ft_strlcpy.c    
 
-INC_FILES       = libft.h
+DIRS : 
+	if test ! -d $(OBJ_DIR); then mkdir $(OBJ_DIR); fi
+	if test ! -d $(BIN_DIR); then mkdir $(BIN_DIR); fi
 
-all : ${DIRS} ${NAME}
+all : DIRS ${NAME}
 
-DIRS :
-	${MKDIR_P} $(OBJ_DIR) $(BIN_DIR)
-
-OBJ_NAME	= $(SRC_FILES:.c=.o)
-
-$(OBJ_DIR)/%.o : $(SRC_DIR)/%.c $(HEADER)
+$(OBJ_DIR)/%.o : $(SRC_DIR)/%.c $(HEADER)	
 	$(CC) $(CFLAGS) $(DEBUG_CFLAGS) -c $< -o $@
 
 $(NAME) : ${OBJS}
